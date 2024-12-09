@@ -1,0 +1,49 @@
+@startuml
+actor User
+
+User -> Main: main(String[] args)
+activate Main
+
+Main -> WorkerController: WorkerController()
+activate WorkerController
+
+Main -> BackupController: BackupController()
+activate BackupController
+
+Main -> WorkerView: WorkerView(workerController)
+activate WorkerView
+
+Main -> BackupView: BackupView(backupController, workerController)
+activate BackupView
+
+Main -> MenuView: MenuView(workerView, backupView)
+activate MenuView
+
+Main -> MenuView: showMenu()
+activate MenuView
+deactivate MenuView
+
+User -> MenuView: showMenu()
+activate MenuView
+
+MenuView -> WorkerView: listEmployees()
+activate WorkerView
+WorkerView --> MenuView: List<Pracownik>
+deactivate WorkerView
+
+MenuView -> BackupView: backupMenu()
+activate BackupView
+BackupView -> BackupController: saveToGzipFile(List<Pracownik>, String)
+activate BackupController
+BackupController --> BackupView: void
+deactivate BackupController
+deactivate BackupView
+
+MenuView -> WorkerView: addEmployee(Pracownik)
+activate WorkerView
+WorkerView --> MenuView: void
+deactivate WorkerView
+
+deactivate MenuView
+deactivate Main
+@enduml

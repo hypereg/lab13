@@ -1,0 +1,107 @@
+@startuml
+
+package view {
+    class WorkerView {
+        - Scanner scanner
+        - WorkerController workerController
+        + WorkerView(WorkerController workerController)
+        + listEmployees()
+        + addEmployee()
+        + removeEmployee()
+    }
+
+    class BackupView {
+        - BackupController backupController
+        - Scanner scanner
+        - WorkerController workerController
+        + BackupView(BackupController backupController, WorkerController workerController)
+        + saveToFile(String fileName, String compression)
+        + loadFromFile(String fileName)
+        + backupMenu()
+    }
+
+    class MenuView {
+        - WorkerView workerView
+        - BackupView backupView
+        + MenuView(WorkerView workerView, BackupView backupView)
+        + showMenu()
+    }
+}
+
+package controller {
+    class WorkerController {
+        + getEmployees(): List<Pracownik>
+        + addEmployee(Pracownik employee)
+        + removeEmployee(String identifier): boolean
+        + setEmployees(List<Pracownik> employees)
+    }
+
+    class BackupController {
+        + saveToGzipFile(List<Pracownik> employees, String fileName)
+        + loadFromGzipFile(String fileName): List<Pracownik>
+        + saveToZipFile(List<Pracownik> employees, String fileName)
+        + loadFromZipFile(String fileName): List<Pracownik>
+    }
+}
+
+package model {
+    class Osoba {
+        + getIdentifier(): String
+        + getName(): String
+        + getSurname(): String
+    }
+
+    class Pracownik {
+        + getIdentifier(): String
+        + getName(): String
+        + getSurname(): String
+        + getJobLevel(): JobLevel
+        + getSalary(): double
+        + getPhoneNumber(): String
+    }
+
+    class Dyrektor extends Pracownik {
+        + getSalaryAddiction(): double
+        + getCardNumber(): String
+        + getMoneyLimit(): double
+    }
+
+    class Handlowiec extends Pracownik {
+        + getTax(): double
+        + getTaxLimit(): double
+    }
+}
+
+package enums {
+    enum JobLevel {
+        DYREKTOR
+        HANDLOWIEC
+    }
+}
+
+package util {
+    class IdentifierUtil {
+        + isValidPesel(String pesel): boolean
+        + isUniquePesel(String pesel, List<Pracownik> employees): boolean
+    }
+}
+
+class Main {
+    + main(String[] args)
+}
+
+view.WorkerView --> controller.WorkerController
+view.BackupView --> controller.BackupController
+view.BackupView --> controller.WorkerController
+view.MenuView --> view.WorkerView
+view.MenuView --> view.BackupView
+controller.WorkerController --> model.Pracownik
+controller.BackupController --> model.Pracownik
+model.Pracownik --> model.Osoba
+model.Dyrektor --> model.Pracownik
+model.Handlowiec --> model.Pracownik
+Main --> view.WorkerView
+Main --> view.BackupView
+Main --> view.MenuView
+
+@enduml

@@ -1,5 +1,6 @@
 package view;
 
+import controller.WorkerController;
 import model.Dyrektor;
 import model.Handlowiec;
 import model.Pracownik;
@@ -11,7 +12,13 @@ import java.util.Scanner;
 
 public class MenuView {
     private final Scanner scanner = new Scanner(System.in);
+    private WorkerView workerView;
+    private BackupView backupView;
 
+    public MenuView(WorkerView workerView, BackupView backupView) {
+        this.workerView = workerView;
+        this.backupView = backupView;
+    }
     public void showMenu() {
         while (true) {
             System.out.println("MENU");
@@ -25,16 +32,16 @@ public class MenuView {
 
             switch (choice) {
                 case 1:
-                    listEmployees();
+                    workerView.listEmployees();
                     break;
                 case 2:
-                    addEmployee();
+                    workerView.addEmployee();
                     break;
                 case 3:
-                    removeEmployee();
+                    workerView.removeEmployee();
                     break;
                 case 4:
-                    backupMenu();
+                    backupView.backupMenu();
                     break;
                 default:
                     System.out.println("Nieprawidłowy wybór, spróbuj ponownie.");
@@ -42,7 +49,4 @@ public class MenuView {
         }
     }
 
-
-
-    private void backupMenu() {}
 }

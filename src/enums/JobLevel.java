@@ -1,10 +1,8 @@
 package enums;
 
-import java.util.NoSuchElementException;
-
-public enum JobLevel{
-    HANDLOWIEC("handlowiec"),
-    DYREKTOR("dyrektor");
+public enum JobLevel {
+    HANDLOWIEC("Handlowiec"),
+    DYREKTOR("Dyrektor");
 
     private final String jobName;
 
@@ -12,16 +10,8 @@ public enum JobLevel{
         this.jobName = job;
     }
 
-    public String getJobName() {
+    @Override
+    public String toString() {
         return jobName;
-    }
-
-    public static JobLevel resolve(String jobName) {
-        if(jobName.equalsIgnoreCase(HANDLOWIEC.getJobName())){
-            return HANDLOWIEC;
-        } else if (jobName.equalsIgnoreCase(DYREKTOR.getJobName())) {
-            return DYREKTOR;
-        }
-        throw new NoSuchElementException("Job not found");
     }
 }

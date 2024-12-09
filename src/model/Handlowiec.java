@@ -1,28 +1,32 @@
 package model;
 
-public class Handlowiec extends Pracownik {
-    private long tax;
-    private long taxLimit;
+import enums.JobLevel;
 
-    public Handlowiec(String identifier, String name, String surname) {
-        super(identifier, name, surname);
+import java.io.Serializable;
+
+public class Handlowiec extends Pracownik implements Serializable {
+    private double tax;
+    private double taxLimit;
+
+    public Handlowiec(String identifier, String name, String surname, JobLevel jobLevel) {
+        super(identifier, name, surname, jobLevel);
     }
 
-    public Handlowiec(String identifier, String name, String surname, long salary, long salaryAddiction, String phoneNumber, String jobPhoneNumber, long tax, long taxLimit) {
-        super(identifier, name, surname, salary, salaryAddiction, phoneNumber, jobPhoneNumber);
+    public Handlowiec(String identifier, String name, String surname, JobLevel jobLevel, double salary, String phoneNumber, String jobPhoneNumber, double tax, double taxLimit) {
+        super(identifier, name, surname, jobLevel, salary, phoneNumber, jobPhoneNumber);
         this.tax = tax;
         this.taxLimit = taxLimit;
     }
 
-    public long getTax() {
+    public double getTax() {
         return tax;
     }
 
-    public void setTax(long tax) {
+    public void setTax(double tax) {
         this.tax = tax;
     }
 
-    public long getTaxLimit() {
+    public double getTaxLimit() {
         return taxLimit;
     }
 

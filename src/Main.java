@@ -1,13 +1,19 @@
+import controller.BackupController;
 import controller.WorkerController;
-import model.Dyrektor;
-import model.Pracownik;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import view.BackupView;
+import view.MenuView;
+import view.WorkerView;
+
 public class Main {
-    private WorkerController workerController;
-
     public static void main(String[] args) {
-        workerController = new WorkerController(this);
+        WorkerController workerController = new WorkerController();
+        BackupController backupController = new BackupController();
+
+        WorkerView workerView = new WorkerView(workerController);
+        BackupView backupView = new BackupView(backupController, workerController);
+
+        MenuView menuView = new MenuView(workerView, backupView);
+        menuView.showMenu();
     }
 }

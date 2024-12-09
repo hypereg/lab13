@@ -2,25 +2,24 @@ package model;
 
 import enums.JobLevel;
 
-public abstract class Pracownik extends Osoba {
+import java.io.Serializable;
+
+public abstract class Pracownik extends Osoba implements Serializable {
     private JobLevel jobLevel;
     private double salary;
-    private double salaryAddiction;
     private String phoneNumber;
     private String jobPhoneNumber;
 
-    // Konstruktor wymagany
     public Pracownik(String identifier, String name, String surname, JobLevel jobLevel) {
-        super(identifier, name, surname);
+        super(identifier, name, surname, jobLevel);
     }
 
-    // Konstruktor opcjonalny
-    public Pracownik(String identifier, String name, String surname, JobLevel jobLevel, double salary, double salaryAddiction, String phoneNumber, String jobPhoneNumber) {
-        super(identifier, name, surname);
+    public Pracownik(String identifier, String name, String surname, JobLevel jobLevel, double salary, String phoneNumber, String jobPhoneNumber) {
+        super(identifier, name, surname, jobLevel);
         this.salary = salary;
-        this.salaryAddiction = salaryAddiction;
         this.phoneNumber = phoneNumber;
         this.jobPhoneNumber = jobPhoneNumber;
+        this.jobLevel = jobLevel;
     }
 
     public double getSalary() {
@@ -29,14 +28,6 @@ public abstract class Pracownik extends Osoba {
 
     public void setSalary(double salary) {
         this.salary = salary;
-    }
-
-    public double getSalaryAddiction() {
-        return salaryAddiction;
-    }
-
-    public void setSalaryAddiction(double salaryAddiction) {
-        this.salaryAddiction = salaryAddiction;
     }
 
     public String getPhoneNumber() {
